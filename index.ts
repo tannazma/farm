@@ -283,7 +283,7 @@ const fullNamesOfPeopleYoungerThan30 = people3
   .map((pe: Persons) => `${pe.name} ${pe.family}`)
   .map(capitalize);
 
-console.log({fullNamesOfPeopleYoungerThan30});
+console.log({ fullNamesOfPeopleYoungerThan30 });
 
 function capitalize(input: string) {
   return input
@@ -291,3 +291,37 @@ function capitalize(input: string) {
     .map((word) => word[0].toUpperCase() + word.substring(1))
     .join(" ");
 }
+
+// What are the names of the animals on every farm?
+
+const farmsAnimalsNames = farms.map((f: Farm) =>
+  animals
+    .filter((a: Animal) => f.animals.includes(a.id))
+    .map((a: Animal) => a.name)
+);
+
+console.log(farmsAnimalsNames);
+
+// Answer the following questions using filter(), find() and map()
+
+// Give the name of every sheep
+const animalsNameSheep = animals
+  .filter((an: Animal) => an.kind === "sheep")
+  .map((an: Animal) => an.name);
+console.log(animalsNameSheep);
+
+// Give the id of every animal that is a cow and hasn't been fed
+const idOfEveryCowNotfed = animals
+  .filter((an: Animal) => an.kind === "cow" && an.hasBeenFed === false)
+  .map((an: Animal) => an.id);
+console.log(idOfEveryCowNotfed);
+
+// Give the name of every unfed animal on the farm owned by a person with name Mary
+const nameOfEveryUnfedAnimalOwnedMary = animals
+.filter((an: Animal) => an.hasBeenFed === false)
+.filter((an: Animal) => {
+    const IdOfMary = people.find((pe: Person) => pe.name === "Mary")?.id;
+    const farmOfMary = farms.find((fa: Farm) => fa.farmer === IdOfMary);
+    return farmOfMary?.animals.includes(an.id);
+  });
+console.log(nameOfEveryUnfedAnimalOwnedMary);
