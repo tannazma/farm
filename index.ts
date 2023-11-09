@@ -317,11 +317,34 @@ const idOfEveryCowNotfed = animals
 console.log(idOfEveryCowNotfed);
 
 // Give the name of every unfed animal on the farm owned by a person with name Mary
-const nameOfEveryUnfedAnimalOwnedMary = animals
-.filter((an: Animal) => an.hasBeenFed === false)
-.filter((an: Animal) => {
+const EveryUnfedAnimalOwnedMary = animals
+  .filter((an: Animal) => an.hasBeenFed === false)
+  .filter((an: Animal) => {
     const IdOfMary = people.find((pe: Person) => pe.name === "Mary")?.id;
     const farmOfMary = farms.find((fa: Farm) => fa.farmer === IdOfMary);
     return farmOfMary?.animals.includes(an.id);
   });
-console.log(nameOfEveryUnfedAnimalOwnedMary);
+const NameOfEveryUnfedAnimalOwnedMary = EveryUnfedAnimalOwnedMary.map(
+  (anim) => anim.name
+);
+console.log(NameOfEveryUnfedAnimalOwnedMary);
+
+// Give the name of every unfed animal on the farm owned by a person with name Mary
+
+const mary = people.find((person) => person.name === "Mary");
+// console.log(mary);
+const maryFarm = farms.find((farm) => farm.farmer === mary?.id);
+// console.log(maryFarm);
+const animalsOfMaryFarm = animals.filter((animal) =>
+  maryFarm?.animals.includes(animal.id)
+);
+// console.log(animalsOfMaryFarm);
+const unfedAnimalsOfMAryFarm = animalsOfMaryFarm.filter(
+  (animal) => animal.hasBeenFed === false
+);
+// console.log(unfedAnimalsOfMAryFarm);
+const nameOfUnfedAnimalsOfMAryFarm = unfedAnimalsOfMAryFarm.map(
+  (animal) => animal.name
+);
+console.log(nameOfUnfedAnimalsOfMAryFarm);
+
